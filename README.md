@@ -53,12 +53,12 @@ The dataset is imbalanced, with Quasars (QSO) being the minority class. This was
 ### Redshift as a Key Predictor
 The `redshift` values for Stars, Galaxies, and QSOs occupy very distinct ranges, making it the most powerful single feature for classification.
 
-*[Image of Redshift Box Plot: `eda2.png`]*
+*![A bar chart showinng redshift values](images/eda2.png)*
 
 ### Feature Importance
 The Random Forest model confirmed our EDA findings, ranking `redshift` as the most important feature by a large margin.
 
-*[Image of Feature Importance Plot: `feature_importance.png`]*
+*![A bar chart showinng feature importance](images/feature_importance.png)*
 
 ---
 
