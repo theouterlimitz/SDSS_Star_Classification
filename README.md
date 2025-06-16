@@ -2,9 +2,9 @@
 
 ## Project Overview
 
-This project utilizes machine learning to classify celestial objects based on data from the Sloan Digital Sky Survey (SDSS) Data Release 17. The primary goal is to build and evaluate models capable of distinguishing between stars, galaxies, and quasars (QSOs) with high accuracy.
+This project utilizes machine learning to classify celestial objects based on data from the Sloan Digital Sky Survey (SDSS) Data Release 17. The primary goal is to build and evaluate a series of models capable of distinguishing between stars, galaxies, and quasars (QSOs) with high accuracy.
 
-The workflow begins with data cleaning, feature engineering, and extensive exploratory data analysis (EDA). A baseline model using a Random Forest Classifier is established and then compared against several neural network architectures to test various optimization techniques, including class weighting and feature engineering. The project concludes with a comparative analysis of all models, demonstrating a complete end-to-end machine learning pipeline.
+The workflow begins with data cleaning, feature engineering, and extensive exploratory data analysis (EDA). A baseline model using a Random Forest Classifier is established and then compared against several neural network architectures and a final voting ensemble model to test various optimization strategies and determine the best model for different objectives.
 
 ---
 
@@ -26,7 +26,7 @@ The dataset used is a curated subset of the **Sloan Digital Sky Survey (SDSS) Da
 2.  **Feature Engineering:** New "color" features (e.g., `u-g`, `g-r`) were created from the raw photometric features to provide more predictive information to the models.
 3.  **Exploratory Data Analysis (EDA):** The cleaned data was visualized to understand feature distributions and the dataset's class imbalance.
 4.  **Machine Learning Preparation:** The data was prepared for modeling using `scikit-learn` for label encoding, stratified train-test splitting, and feature scaling.
-5.  **Comparative Modeling:** A Random Forest model was trained to set a high-performance baseline. It was then compared against multiple neural network configurations to test different optimization strategies, including deeper architectures, feature engineering, and class weighting.
+5.  **Comparative Modeling:** A Random Forest model was trained to set a high-performance baseline. It was then compared against multiple neural network configurations and a final soft-voting ensemble model to test different optimization strategies.
 
 ---
 
@@ -38,7 +38,7 @@ The dataset is imbalanced, with Quasars (QSO) being the minority class. This was
 *![A bar chart showing distribution of celestial objects](images/eda1.png)*
 
 ### Redshift as a Key Predictor
-The `redshift` values for Stars, Galaxies, and QSOs occupy highly distinct ranges, making it the most powerful single feature for classification.
+The `redshift` values for Stars, Galaxies, and QSOs occupy very distinct ranges, making it the most powerful single feature for classification.
 
 *![A box plot showing redshift values by class](images/eda2.png)*
 
@@ -51,32 +51,35 @@ The Random Forest model confirmed our EDA findings, ranking `redshift` as the mo
 
 ## Model Performance Comparison
 
-The central outcome of this project is the nuanced comparison between the baseline model and the various neural network experiments.
+The central outcome of this project is the nuanced comparison between the baseline model and the various advanced modeling techniques.
 
-| Metric | Random Forest (Baseline) | NN (with Feature Engineering) | NN (with Class Weights) |
+| Metric | Random Forest (Baseline) | NN (with Class Weights) | **Manual Ensemble** |
 | :--- | :--- | :--- | :--- |
-| **Overall Accuracy** | **97.95%** | 96.93% | 96.65% |
-| **F1-Score (QSO)** | **0.95** | **0.95** | **0.95** |
-| **Recall (QSO)** | 0.93 | 0.92 | **0.94** |
+| **Overall Accuracy** | **97.95%** | 96.65% | 97.32% |
+| **Recall (QSO)** | 0.93 | **0.94** | **0.94** |
 
-### Conclusions on Model Performance
+### Conclusion on Model Performance
 
-1.  **Best Overall Model:** The **Random Forest Classifier** provided the best **overall accuracy**, proving to be an extremely effective and efficient model for this structured dataset.
-2.  **Best for the Specific Problem:** For the specific challenge of finding the highest number of rare Quasars, the **Neural Network with Class Weights** was the superior model, achieving the highest **recall (94%)** for the QSO class.
-3.  **The Value of Experimentation:** This highlights a critical concept in data science: the "best" model depends on the specific goal. While Random Forest was best overall, targeted techniques like class weighting were necessary to optimize for the minority class.
+The key takeaway is that the "best" model depends on the specific performance objective:
+1.  **Best Overall Model:** The **Random Forest Classifier** provided the best **overall accuracy**, making it the most reliable model for general-purpose classification on this dataset.
+2.  **Best for the Specific Problem:** For the specific challenge of finding the highest number of rare Quasars, the **Neural Network with Class Weights** and the final **Manual Ensemble** were superior, both achieving the highest **recall (94%)** for the QSO class.
+3.  **The Value of Ensembling:** The final ensemble model successfully balanced the strengths of its components, improving on the neural network's accuracy while maintaining its high recall for the minority class.
+
+This demonstrates that while a simpler model may achieve the best general accuracy, advanced techniques like class weighting or ensembling can be necessary to optimize for specific, important outcomes like detecting rare events.
 
 ---
 
 ## Repository Contents
 
-* **`01_Initial_Data_Exploration.ipynb`**: Details the data loading, cleaning, feature engineering, and exploratory data analysis process.
-* **`02_Modeling.ipynb`**: Contains the ML data preparation, baseline model (Random Forest), and all neural network experiments and their evaluations.
+* **`01_Initial_Data_Exploration.ipynb`**: A Jupyter notebook detailing the data loading, cleaning, feature engineering, and exploratory data analysis process.
+* **`02_Modeling.ipynb`**: A Jupyter notebook that covers the ML data preparation, baseline model (Random Forest), all neural network experiments, and the final ensemble model and its evaluation.
 * **`cleaned_sdss_data.pkl`**: The processed and cleaned dataset, used as the input for the modeling notebook.
 
 ## Tools & Libraries Used
 
 * **Python 3**
 * **Pandas & NumPy**
-* **Scikit-learn** (RandomForestClassifier, StandardScaler, train_test_split, class_weight)
+* **Scikit-learn**
 * **TensorFlow (Keras)**
+* **Scikeras**
 * **Matplotlib & Seaborn**
