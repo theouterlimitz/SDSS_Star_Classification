@@ -48,7 +48,7 @@ The dataset used is a curated subset of the **Sloan Digital Sky Survey (SDSS) Da
 ### Class Distribution
 The dataset is imbalanced, with Quasars (QSO) being the minority class. This was accounted for during the train/test split and model evaluation.
 
-*[Image of Class Distribution Plot: `eda1.png`]*
+*![A bar chart showinng distribution of celestial objects](images/eda1.png)*
 
 ### Redshift as a Key Predictor
 The `redshift` values for Stars, Galaxies, and QSOs occupy very distinct ranges, making it the most powerful single feature for classification.
